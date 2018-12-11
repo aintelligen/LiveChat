@@ -1,10 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require("express-cors")
+// const cors = require("express-cors")
+const cors = require("cors")
 const app = express();
 
 
-app.use(cors())
+app.use(cors({
+  allowedOrigins: [
+    'localhost',
+    '127.0.0.1'
+  ]
+}))
 
 // 连接mongo
 const DB_URL = 'mongodb://127.0.0.1:27017/imooc-react';
@@ -52,13 +58,13 @@ User.remove({ age: 18 }, function (err, doc) {
   }
 }) */
 
-User.update({ 'user': 'kobe' }, { '$set': { 'age': 38 } }, function (err, doc) {
+/* User.update({ 'user': 'kobe' }, { '$set': { 'age': 38 } }, function (err, doc) {
   if (!err) {
     console.log(doc)
   } else {
     console.log(err)
   }
-})
+}) */
 
 
 app.get('/user', function (req, res) {
