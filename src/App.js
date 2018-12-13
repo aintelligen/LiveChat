@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { addGUN, removeGUN, addGunAsync } from './redux/index'
 import Reducer from './reducer'
+import './config.js'
+import 'antd-mobile/dist/antd-mobile.css'
 
 @connect(
   state => ({ num: state.counter }),

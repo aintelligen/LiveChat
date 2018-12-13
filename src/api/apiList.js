@@ -1,10 +1,10 @@
-const host = 'http://localhost:9093';
+let host = 'http://localhost:9093';
 
-export default {
-  user: host + 'user'
+let user = host + '/user';
+
+export {
+  user
 }
-
-
 
 
 

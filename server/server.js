@@ -49,7 +49,8 @@ User.create({
   } else {
     console.log(err)
   }
-})
+}) */
+/* 
 User.remove({ age: 18 }, function (err, doc) {
   if (!err) {
     console.log(doc)
@@ -72,6 +73,18 @@ app.get('/user', function (req, res) {
     return res.json(doc)
   })
 })
+app.get('/data', function (req, res) {
+  User.find({}, function (err, doc) {
+    return res.json(doc)
+  })
+})
+/* User.remove({ age: 18 }, function (err, doc) {
+  if (!err) {
+    console.log(doc)
+  } else {
+    console.log(err)
+  }
+}) */ 
 
 
 

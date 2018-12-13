@@ -67,10 +67,16 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "server": "nodemon --harmony server/server.js",
-    "dev": "npm run server && npm run start"
+    "dev": "npm run server && npm run start",
+    "mongo": "mongod --config F:/MongoDB/etc/mongodb.conf"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-undef": "off",
+      "no-restricted-globals": "off",
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     ">0.2%",

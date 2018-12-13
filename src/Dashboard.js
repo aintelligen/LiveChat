@@ -1,8 +1,7 @@
 import React from 'react'
-import { BrowserRouter, Route, Link, Redirect, Switch } from 'react-router-dom'
+import { Route, Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from './redux/index'
-import { Button } from 'antd-mobile';
 
 function One() {
   return <h2>one</h2>
