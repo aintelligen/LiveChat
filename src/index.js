@@ -4,13 +4,14 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import Reducer from './reducer'
-import App from './App'
-
+import './index.css'
+import 'antd-mobile/dist/antd-mobile.css'
 
 import { BrowserRouter, Route, Link, Redirect, Switch } from 'react-router-dom'
 
-import Auth from './pages/Auth'
-import Dashboard from './Dashboard'
+
+import Register from './pages/register/register';
+import Login from './pages/login/login';
 
 
 const store = createStore(
@@ -27,11 +28,8 @@ ReactDom.render(
   <Provider store={store} >
     <BrowserRouter>
       <div>
-        <Switch>
-          <Route path="/login" exact component={Auth}></Route>
-          <Route path="/dashboard" component={Dashboard}></Route>
-          <Redirect to="/dashboard"></Redirect>
-        </Switch>
+        <Route path="/login" exact component={Login}></Route>
+        <Route path="/register" component={Register}></Route>
       </div>
     </BrowserRouter>
   </Provider>,
