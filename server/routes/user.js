@@ -97,7 +97,8 @@ Router.get('/info', function (req, res) {
 })
 
 Router.get('/list', function (req, res) {
-  User.find({},function(err,doc){
+  const {type} = req.query;
+  User.find({type},function(err,doc){
     if(doc){
       res.json({ code: 0, data:doc })
     }    

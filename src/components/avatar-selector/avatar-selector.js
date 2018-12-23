@@ -16,7 +16,7 @@ class AvatarSelector extends React.Component {
   componentDidMount() {
   }
   render() {
-    const avatarList = "ball,boss,boy,default,genuis,girl,jack,sala".split(",").map(v=>({
+    const avatarList = "ball,boss,boy,default,genius,girl,msg,user".split(",").map(v=>({
       icon:require(`../img/${v}.png`),
       text:v
     }))

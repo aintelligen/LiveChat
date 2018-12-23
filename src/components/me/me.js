@@ -2,17 +2,12 @@ import React from 'react'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 
 
-class Login extends React.Component {
+class Me extends React.Component {
   componentDidMount() {
   }
   render() {
-    return (
-      <div>
-        boss
-      </div>
-    )
-
+    return '';
   }
 }
 
-export default Login
+export default Me

@@ -13,9 +13,8 @@ import './config'
 import Register from './pages/register/register';
 import Login from './pages/login/login';
 import BossInfo from './pages/bossinfo/bossinfo';
-import Boss from './pages/boss/boss';
-import Genius from './pages/genius/genius';
 import GeniusInfo from './pages/geniusinfo/geniusinfo';
+import DashBoard from './components/dashboard/dashboard';
 
 
 const store = createStore(
@@ -26,20 +25,21 @@ const store = createStore(
   )
 )
 
-console.log(store.getState())
+console.log(store.getState()) 
 
 ReactDom.render(
   <Provider store={store} >
     <BrowserRouter>
       <div>
         <AuthRoute></AuthRoute>
-        <Route path="/" exact component={Login}></Route>
-        <Route path="/login" component={Login}></Route>
-        <Route path="/register" component={Register}></Route>
-        <Route path="/bossinfo" component={BossInfo}></Route>         
-        <Route path="/boss" component={Boss}></Route>         
-        <Route path="/geniusinfo" component={GeniusInfo}></Route>         
-        <Route path="/genius" component={Genius}></Route>         
+        <Switch>
+          <Route path="/" exact component={Login}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/register" component={Register}></Route>
+          <Route path="/bossinfo" component={BossInfo}></Route>
+          <Route path="/geniusinfo" component={GeniusInfo}></Route>
+          <Route component={DashBoard}></Route>  
+        </Switch>      
       </div>
     </BrowserRouter>
   </Provider>,

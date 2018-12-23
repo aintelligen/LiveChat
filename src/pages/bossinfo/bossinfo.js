@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar, InputItem, TextareaItem , Button} from 'antd-mobile'
+import { NavBar, InputItem, TextareaItem , Button,WingBlank,WhiteSpace} from 'antd-mobile'
 import AvatarSelector from '../../components/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {update} from '../../redux/user.redux'
@@ -62,11 +62,14 @@ class BossInfo extends React.Component {
           autoHeight
           title='职位要求'
         ></TextareaItem>
-        <Button
-          onClick={()=>{
-            this.props.update(this.state)
-          }}
-         type="primary">保存</Button>
+        <WhiteSpace></WhiteSpace>
+        <WingBlank>
+          <Button
+            onClick={()=>{
+              this.props.update(this.state)
+            }}
+          type="primary">保存</Button>
+        </WingBlank>
       </div>
     )
 

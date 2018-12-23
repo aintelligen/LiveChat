@@ -2,17 +2,12 @@ import React from 'react'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 
 
-class Genius extends React.Component {
+class Msg extends React.Component {
   componentDidMount() {
   }
   render() {
-    return (
-      <div>
-        Genius
-      </div>
-    )
-
+    return '';
   }
 }
 
-export default Genius
+export default Msg
