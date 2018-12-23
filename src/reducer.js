@@ -1,5 +1,5 @@
 // 合并reducer
 import { combineReducers } from 'redux'
-import { counter, auth } from './redux/index'
+import { user } from './redux/user.redux'
 
-export default combineReducers({ counter, auth })
+export default combineReducers({ user })

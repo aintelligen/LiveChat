@@ -1,9 +1,18 @@
-let host = 'http://localhost:9093';
+let host = '';
 
-let user = host + '/user';
+let userList = host + '/user/list';
+let userRegister = host + '/user/register';
+let userLogin = host + '/user/login';
+let userInfo = host + '/user/info';
+
+
+
 
 export {
-  user
+  userList,
+  userRegister,
+  userLogin,
+  userInfo
 }
 
 
