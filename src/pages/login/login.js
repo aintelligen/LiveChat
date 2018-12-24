@@ -1,9 +1,52 @@
 import React from 'react'
 import Logo from '../../components/logo/logo.js'
+import ImoocForm from '../../components/imooc-form/imooc-form'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { login } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
+
+
+// 属性代理
+/* function wrapperHello(Component){
+  class Wrapper extends Component{
+    componentDidMount(){
+      console.log('高阶组件新增的生命周期，加载完成')
+    }
+    render(){
+      return(
+        <div>
+          <p>这个高阶组件</p>
+          <Component {...this.props}></Component>
+        </div>
+      )
+    }
+  }
+  class Wrapper extends React.Component{
+    render(){
+      return(
+        <div>
+          <p>这个高阶组件</p>
+          <Component {...this.props}></Component>
+        </div>
+      )
+    }
+  }
+  return Wrapper;
+}
+@wrapperHello
+class Hello extends React.Component{
+  render(){
+    return(
+      <h2>hello</h2>
+    )
+  }
+} */
+
+
+
+
+
 
 @connect(
   state=>state.user,
@@ -11,13 +54,10 @@ import { Redirect } from 'react-router-dom'
     login
   }
 )
+@ImoocForm
 class Login extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      user: '',
-      pwd: '',
-    }
     this.register = this.register.bind(this)
     this.loginAct = this.loginAct.bind(this)
   }
@@ -25,12 +65,7 @@ class Login extends React.Component {
     this.props.history.push('/register')
   }
   loginAct(){
-    this.props.login(this.state);
-  }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
+    this.props.login(this.props.state);
   }
   componentDidMount() {
   }
@@ -41,9 +76,9 @@ class Login extends React.Component {
         <Logo></Logo>
         <WingBlank>
           <List>
-            <InputItem onChange={(v) => { this.handleChange('user', v) }}>用户名</InputItem>
+            <InputItem onChange={(v) => { this.props.handleChange('user', v) }}>用户名</InputItem>
             <WhiteSpace></WhiteSpace>
-            <InputItem type="password" onChange={(v) => { this.handleChange('pwd', v) }}>密码</InputItem>
+            <InputItem type="password" onChange={(v) => { this.props.handleChange('pwd', v) }}>密码</InputItem>
           </List>
           <WhiteSpace></WhiteSpace>
           <Button type="primary" onClick={this.loginAct}>登录</Button>

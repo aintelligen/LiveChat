@@ -1,14 +1,31 @@
 import React from 'react'
-import { Result, List, WhiteSpace } from 'antd-mobile'
+import { Result, List, WhiteSpace, Modal } from 'antd-mobile'
 import { connect } from 'react-redux'
-
+import browserCookie from 'browser-cookies'
+import { logoutSubmit} from '../../redux/user.redux'
+import { Redirect } from 'react-router-dom'
 @connect(
-  state => state.user
+  state => state.user,
+  {
+    logoutSubmit
+  }
 )
 
 class Me extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.logout = this.logout.bind(this)
+  }
+  logout() {
+    const alert = Modal.alert;
+    alert('注销', '确认退出登录吗', [
+      { text: '取消', onPress: () => console.log('cancel') },
+      { text: '确认', onPress: () => {
+        browserCookie.erase('')
+        this.props.logoutSubmit()
+      }},
+    ]);
+   
   }
   componentDidMount() {
 
@@ -19,6 +36,7 @@ class Me extends React.Component {
     const props = this.props;
     return (
       <div>
+        {this.props.redirectTo==='/login' ? <Redirect to={this.props.redirectTo}/> : null}
         <Result
           img={props.avatar ? <img src={require(`../img/${props.avatar}.png`)}></img> : null}
           title={props.user}
@@ -33,7 +51,7 @@ class Me extends React.Component {
           </Item>
         </List>
         <WhiteSpace></WhiteSpace>
-        <List><Item>退出登录</Item></List>
+        <List><Item onClick={this.logout}>退出登录</Item></List>
       </div>
     )
   }

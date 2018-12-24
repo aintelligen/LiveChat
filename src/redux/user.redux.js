@@ -6,6 +6,7 @@ const LOAD_DATA = 'LOAD_DATA'
 const ERROR_MSG = 'ERROR_MSG'
 const AUTH_SUCESS = 'AUTH_SUCESS'
 const UPDATE = 'UPDATE'
+const LOGOUT = 'LOGOUT'
 
 const initState = {
   isAuth: false,
@@ -26,6 +27,8 @@ export function user(state = initState, action) {
       return { ...state, ...action.payload }
     case ERROR_MSG:
       return { ...state, isAuth: false, msg: action.msg }
+    case LOGOUT:
+      return {...initState, redirectTo:'/login'};
     default:
       return state;
 
@@ -60,6 +63,10 @@ export function register({ user, pwd, repeatpwd, type }) {
   }
 
 }
+
+export function logoutSubmit() {
+  return {type: LOGOUT}
+}
 export function login({ user, pwd }) {
   if (!user || !pwd) {
     return errorMsg('用户名密码必须输入')
@@ -73,7 +80,6 @@ export function login({ user, pwd }) {
       }
     })
   }
-
 }
 export function loadData(userinfo) {
   return { type: LOAD_DATA, payload: userinfo }
