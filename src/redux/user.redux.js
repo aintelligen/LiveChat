@@ -1,6 +1,6 @@
 import Axios from "axios";
-import { userRegister,userLogin,userInfo} from '../api/apiList'
-import {getRedirectPath} from '../utils'
+import { userRegister, userLogin, userInfo } from '../api/apiList'
+import { getRedirectPath } from '../utils'
 
 const LOAD_DATA = 'LOAD_DATA'
 const ERROR_MSG = 'ERROR_MSG'
@@ -19,10 +19,9 @@ const initState = {
 
 
 export function user(state = initState, action) {
-  console.log(action);
   switch (action.type) {
     case AUTH_SUCESS:
-      return { ...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload,pwd:'' }
+      return { ...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload, pwd: '' }
     case LOAD_DATA:
       return { ...state, ...action.payload }
     case ERROR_MSG:
@@ -36,7 +35,7 @@ export function user(state = initState, action) {
 
 
 function authSucess(obj) {
-  const {pwd, ...data} = obj;
+  const { pwd, ...data } = obj;
   return { type: AUTH_SUCESS, payload: data }
 }
 function errorMsg(msg) {
@@ -52,7 +51,6 @@ export function register({ user, pwd, repeatpwd, type }) {
   }
   return dispatch => {
     Axios.post(userRegister, { user, pwd, repeatpwd, type }).then((res) => {
-      console.log(res)
       if (res.status === 200 && res.data.code === 0) {
         dispatch(authSucess({ user, pwd, repeatpwd, type }));
       } else {
@@ -68,7 +66,6 @@ export function login({ user, pwd }) {
   }
   return dispatch => {
     Axios.post(userLogin, { user, pwd }).then((res) => {
-      console.log(res)
       if (res.status === 200 && res.data.code === 0) {
         dispatch(authSucess(res.data.data));
       } else {
@@ -79,17 +76,16 @@ export function login({ user, pwd }) {
 
 }
 export function loadData(userinfo) {
-  return {type: LOAD_DATA, payload:userinfo}
+  return { type: LOAD_DATA, payload: userinfo }
 }
 export function update(data) {
-  return dispatch=>{
-    Axios.post('/user/update',data).then((res)=>{
-      console.log(res)
+  return dispatch => {
+    Axios.post('/user/update', data).then((res) => {
       if (res.status === 200 && res.data.code === 0) {
         dispatch(authSucess(res.data.data));
       } else {
         dispatch(errorMsg(res.data.msg));
       }
     })
-  }  
+  }
 }

@@ -25,7 +25,7 @@ const store = createStore(
   )
 )
 
-console.log(store.getState()) 
+
 
 ReactDom.render(
   <Provider store={store} >
@@ -38,8 +38,8 @@ ReactDom.render(
           <Route path="/register" component={Register}></Route>
           <Route path="/bossinfo" component={BossInfo}></Route>
           <Route path="/geniusinfo" component={GeniusInfo}></Route>
-          <Route component={DashBoard}></Route>  
-        </Switch>      
+          <Route component={DashBoard}></Route>
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>,

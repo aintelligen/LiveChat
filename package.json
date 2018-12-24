@@ -73,6 +73,7 @@
     "test": "node scripts/test.js",
     "server": "nodemon --harmony server/server.js",
     "dev": "concurrently \"npm run mongo\" \"npm run server\"  \"npm run start\"",
+    "cdev": "concurrently \"npm run server\"  \"npm run start\"",
     "mongo": "mongod --config F:/MongoDB/etc/mongodb.conf"
   },
   "eslintConfig": {
