@@ -16,12 +16,12 @@ class AvatarSelector extends React.Component {
   componentDidMount() {
   }
   render() {
-    const avatarList = "ball,boss,boy,default,genius,girl,msg,user".split(",").map(v=>({
+    const avatarList = "ball,boss,boy,default,genius,girl,msg,user,pig,sheep,snake,tiger".split(",").map(v=>({
       icon:require(`../img/${v}.png`),
       text:v
     }))
     const gridHeader = this.state.icon ? 
-      (<div><span>已选择头像</span><img src={this.state.icon}/></div>) :
+      (<div><span>已选择头像</span><img src={this.state.icon} alt={this.state.icon}/></div>) :
       (<div>请选择头像</div>)
     return (
       <div>

@@ -19,7 +19,12 @@ const models = {
     'money': { 'type': String },
   },
   chat: {
-
+    'from': { 'type': String, 'require': true },
+    'to': { 'type': String, 'require': true },
+    'content': { 'type': String, 'require': true , default:''},
+    'create_time': { 'type': Number, default:new Date().getTime() },
+    'chat_id': { 'type': String, 'require': true },
+    'read': { 'type': Boolean, default: false },
   }
 }
 

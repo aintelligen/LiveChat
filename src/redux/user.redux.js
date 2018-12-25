@@ -7,6 +7,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const AUTH_SUCESS = 'AUTH_SUCESS'
 const UPDATE = 'UPDATE'
 const LOGOUT = 'LOGOUT'
+const RESET_STATE = 'RESET_STATE'
 
 const initState = {
   isAuth: false,
@@ -29,6 +30,8 @@ export function user(state = initState, action) {
       return { ...state, isAuth: false, msg: action.msg }
     case LOGOUT:
       return {...initState, redirectTo:'/login'};
+    case RESET_STATE:
+      return {...initState,redirectTo:''};
     default:
       return state;
 
@@ -66,6 +69,9 @@ export function register({ user, pwd, repeatpwd, type }) {
 
 export function logoutSubmit() {
   return {type: LOGOUT}
+}
+export function resetState() {
+  return {type: RESET_STATE}
 }
 export function login({ user, pwd }) {
   if (!user || !pwd) {

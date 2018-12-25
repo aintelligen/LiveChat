@@ -15,6 +15,7 @@ import Login from './pages/login/login';
 import BossInfo from './pages/bossinfo/bossinfo';
 import GeniusInfo from './pages/geniusinfo/geniusinfo';
 import DashBoard from './components/dashboard/dashboard';
+import Chat from './components/chat/chat';
 
 
 const store = createStore(
@@ -38,6 +39,7 @@ ReactDom.render(
           <Route path="/register" component={Register}></Route>
           <Route path="/bossinfo" component={BossInfo}></Route>
           <Route path="/geniusinfo" component={GeniusInfo}></Route>
+          <Route path="/chat/:user" component={Chat}></Route>
           <Route component={DashBoard}></Route>
         </Switch>
       </div>

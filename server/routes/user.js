@@ -3,6 +3,7 @@ const utils = require('utility')
 const Router = express.Router();
 const models = require('../model')
 const User = models.getModel('user')
+const Chat = models.getModel('chat')
 
 const _filter = {'pwd':0, '__v':0}
 
@@ -86,6 +87,7 @@ Router.get('/info', function (req, res) {
     })
   }
   User.findOne({_id:userid},_filter,function(err,doc){
+    const {userid} = req.cookies;
     if(err){
       res.json({ code: 1, msg:'后端出错了' })
     }
@@ -94,6 +96,28 @@ Router.get('/info', function (req, res) {
     }
     
   })
+})
+
+Router.get('/getmsglist', function (req, res) {
+  const {userid} = req.cookies;
+  if(!userid){
+    return res.json({
+      code:1
+    })
+  }
+  User.find({},function(err,userDoc){
+    let users = {}
+    userDoc.forEach(v=>{
+      users[v._id] = {name:v.user, avatar:v.avatar}
+    })
+    const findFilter = {'$or':[{from:userid}, {to:userid}]};
+    Chat.find(findFilter,function(err,doc){
+      if(doc){
+        res.json({ code: 0, msgs:doc, users:users })
+      }    
+    })
+  })
+  
 })
 
 Router.get('/list', function (req, res) {
