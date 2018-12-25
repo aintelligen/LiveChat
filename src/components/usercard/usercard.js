@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, WingBlank, WhiteSpace, } from 'antd-mobile'
 import PropTypes from 'prop-types'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 @withRouter
 class UserCard extends React.Component {
@@ -22,7 +22,7 @@ class UserCard extends React.Component {
             <WhiteSpace></WhiteSpace>
             <Header
               title={v.user}
-              thumb={require(`../img/${v.avatar}.png`)}
+              thumb={v.avatar ? require(`../img/${v.avatar}.png`) : ''}
               extra={<span>{v.title}</span>}></Header>
             <Body>
               {

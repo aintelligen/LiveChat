@@ -30,6 +30,12 @@ code {
 #chat-page .chat-me .am-list-extra{
   flex-basis: auto;
 }
+#chat-page .am-grid-icon{
+  display: none;
+}
+#chat-page .am-grid .am-flexbox .am-flexbox-item .am-grid-item-content .am-grid-item-inner-content .am-grid-text{
+  margin-top: 4px;
+}
 #chat-page .chat-me .am-list-content{
   padding-right: 15px;
   text-align: right;
