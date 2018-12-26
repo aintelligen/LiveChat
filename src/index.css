@@ -40,9 +40,19 @@ code {
   padding-right: 15px;
   text-align: right;
 }
+.stick-header{
+  height: 45px;    
+}
+.stick-header-navbar{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
 .stick-footer{
-  z-index:100px;
-  position: absolute;
+  z-index:100;
+  position: fixed;
   width:100%;
   bottom:0;
 }

@@ -98,6 +98,29 @@ Router.get('/info', function (req, res) {
   })
 })
 
+Router.post('/readmsg', function (req, res) {
+  const {userid} = req.cookies;
+  const {from} = req.body;  
+  if(!userid){
+    return res.json({
+      code:1,
+      msg:'账号未登录'
+    })
+  }
+  Chat.update(
+    {from,to:userid},
+    {'$set':{read:true}},
+    {'multi':true},
+    function(err,doc){
+      if(err){
+        return res.json({ code: 1, msg:'后端出错了' })
+      }
+      return res.json({ code: 0, num:doc.nModified })
+    }
+  )
+  
+})
+
 Router.get('/getmsglist', function (req, res) {
   const {userid} = req.cookies;
   if(!userid){
