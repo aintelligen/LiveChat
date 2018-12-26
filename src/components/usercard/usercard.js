@@ -15,7 +15,7 @@ class UserCard extends React.Component {
     const Header = Card.Header;
     const Body = Card.Body;
     return (
-      <WingBlank>
+      <div>
         {this.props.userList.map(v => (
           <Card key={v._id}
             onClick={() => this.handleClick(v)}>
@@ -37,7 +37,7 @@ class UserCard extends React.Component {
             </Body>
           </Card>
         ))}
-      </WingBlank>
+      </div>
     )
   }
 }
