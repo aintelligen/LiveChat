@@ -1,10 +1,15 @@
 import React from 'react'
 import { connect } from './womiu-react-redux'
 import { addGun, removeGun, addGunAsync, addTwice } from './index.redux'
-
+import { createSelector } from 'reselect'
+const numSelector = createSelector(
+  state => state,
+  // 第二个参数是第一个的返回值
+  num => ({ num: num * 2 })
+)
 // 装饰器模式
 @connect(
-  state => ({ num: state }),
+  state => numSelector(state),
   { addGun, removeGun, addGunAsync, addTwice }
 )
 class App extends React.Component {
