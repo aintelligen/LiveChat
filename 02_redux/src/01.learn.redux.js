@@ -1,7 +1,8 @@
-import { createStore } from 'redux'
+import { createStore } from './woniu-redux'
 
 // 这就是reducer处理函数，参数是状态和新的action
-function counter(state=0, action) {
+function counter(state = 0, action) {
+  console.log(action)
   // let state = state||0
   switch (action.type) {
     case '加机关枪':
@@ -17,7 +18,7 @@ const store = createStore(counter)
 // console.log
 const init = store.getState()
 console.log(`一开始有机枪${init}把`)
-function listener(){
+function listener() {
   const current = store.getState()
   console.log(`现在有机枪${current}把`)
 }

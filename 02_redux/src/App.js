@@ -1,14 +1,15 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect } from './womiu-react-redux'
 import { addGun, removeGun, addGunAsync } from './index.redux'
 
 // 装饰器模式
 @connect(
-  state=>({ num: state}),
-  {addGun, removeGun, addGunAsync}
+  state => ({ num: state }),
+  { addGun, removeGun, addGunAsync }
 )
-class App extends React.Component{
-  render(){
+class App extends React.Component {
+  render() {
+    console.log(this.props)
     // num addGun，removeGun，addGunAsync都是connect给的，不需要手动dispatch
     return (
       <div>
@@ -17,7 +18,7 @@ class App extends React.Component{
         <button onClick={this.props.removeGun}>上交武器</button>
         <button onClick={this.props.addGunAsync}>拖两天再给</button>
       </div>
-    ) 
+    )
   }
 }
 export default App;
