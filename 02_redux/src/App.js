@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from './womiu-react-redux'
-import { addGun, removeGun, addGunAsync } from './index.redux'
+import { addGun, removeGun, addGunAsync, addTwice } from './index.redux'
 
 // 装饰器模式
 @connect(
   state => ({ num: state }),
-  { addGun, removeGun, addGunAsync }
+  { addGun, removeGun, addGunAsync, addTwice }
 )
 class App extends React.Component {
   render() {
@@ -17,6 +17,7 @@ class App extends React.Component {
         <button onClick={this.props.addGun}>申请武器</button>
         <button onClick={this.props.removeGun}>上交武器</button>
         <button onClick={this.props.addGunAsync}>拖两天再给</button>
+        <button onClick={this.props.addTwice}>两把</button>
       </div>
     )
   }

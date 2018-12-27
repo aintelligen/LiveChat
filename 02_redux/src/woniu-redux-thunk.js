@@ -5,4 +5,15 @@ const thunk = ({ dispatch, getState }) => next => action => {
   return next(action)
 }
 
-export default thunk
+const arrThunk = ({ dispatch, getState }) => next => action => {
+  console.log(action)
+  if (Array.isArray(action)) {
+    return action.forEach(v => dispatch(v))
+  }
+  return next(action)
+}
+
+export {
+  thunk,
+  arrThunk
+} 

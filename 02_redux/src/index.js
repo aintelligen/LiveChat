@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from './woniu-redux'
-import thunk from './woniu-redux-thunk'
+import { thunk, arrThunk } from './woniu-redux-thunk'
 import { counter } from './index.redux'
 import { Provider } from './womiu-react-redux'
 import App from './App'
@@ -13,7 +13,7 @@ import './01.learn.redux'
 // ReactDOM.render(<Page />, document.getElementById('root'));
 
 
-const store = createStore(counter, applyMiddleware(thunk)/* compose(
+const store = createStore(counter, applyMiddleware(thunk, arrThunk)/* compose(
   applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ) */)

@@ -3,7 +3,7 @@
 const ADD_GUN = '加机关枪'
 const REMOVE_GUN = '减机关枪'
 // 这就是reducer处理函数，参数是状态和新的action
-export function counter(state=0, action) {
+export function counter(state = 0, action) {
   // let state = state||0
   switch (action.type) {
     case ADD_GUN:
@@ -14,14 +14,17 @@ export function counter(state=0, action) {
       return 10
   }
 }
-export function addGun(){
+export function addGun() {
   return { type: ADD_GUN }
 }
-export function removeGun(){
+export function removeGun() {
   return { type: REMOVE_GUN }
 }
+export function addTwice() {
+  return [{ type: ADD_GUN }, { type: ADD_GUN }]
+}
 // 延迟添加，拖两天再给
-export function addGunAsync(){
+export function addGunAsync() {
   // thunk插件的作用，这里可以返回函数，
   return dispatch => {
     setTimeout(() => {

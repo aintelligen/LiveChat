@@ -43,9 +43,8 @@ export function applyMiddleware(...middlewares) {
 
     const midApi = {
       getState: store.getState,
-      dispatch: (...args) => {
-        dispatch(...args)
-      }
+      dispatch: (...args) => dispatch(...args)
+
     }
     let middlewareChain = middlewares.map(middleware => middleware(midApi))
     dispatch = compose(...middlewareChain)(store.dispatch)
