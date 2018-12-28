@@ -42,3 +42,82 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+##Eslint 
+
+[Airbnb Javascript](https://github.com/airbnb/javascript)
+
+##Antd motion
+
+[Motion Design](https://motion.ant.design/)
+
+##项目打包上线
+
+npm run build  生成 build 目录  
+express 中间件，拦截路由，手动渲染index.html  
+bulid 设置为静态资源地址  
+
+```js
+// server.js
+// 中间件
+app.use(function (req, res, next) {
+  if (req.url.startsWith('/chat/') || req.url.startsWith('/user/') || req.url.startsWith('/static')) {
+    return next()
+  }
+  return res.sendFile(path.resolve('build/index.html'))
+})
+
+// 设置静态资源路径
+app.use('/', express.static(path.resolve('build')))
+```
+
+##SSR  
+@babel/node @babel/cli corss-env  支持jsx  
+新建 server下  .babelrc
+```json
+{
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
+  ]
+}
+```
+
+
+```jsx
+// server.js
+import { renderToString } from 'react-dom/server'
+function App() {
+  return (
+    <h2>
+      <p>server render</p>
+      <p>imooc server</p>
+    </h2>
+  )
+}
+const htmlRes = renderToString(App());
+return res.send(htmlRes)
+```
+
+package.json
+```json
+"server": "cross-env NODE_ENV=test nodemon --exec babel-node server/server.js",
+```
+
+# SSR hook
+png
+asset-require-hook
+css
+css-modules-require-hook
+
+
+
+
+

@@ -4,10 +4,11 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.0",
+    "@babel/node": "^7.2.2",
     "@svgr/webpack": "2.4.1",
     "antd-mobile": "^2.2.6",
+    "asset-require-hook": "^1.2.0",
     "axios": "^0.18.0",
-    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
     "babel-loader": "8.0.4",
@@ -21,7 +22,9 @@
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "css-loader": "1.0.0",
+    "css-modules-require-hook": "^4.2.3",
     "dotenv": "6.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "5.6.0",
@@ -49,6 +52,7 @@
     "postcss-preset-env": "6.0.6",
     "postcss-safe-parser": "4.0.1",
     "prop-types": "^15.6.2",
+    "rc-queue-anim": "^1.6.10",
     "react": "^16.6.3",
     "react-app-polyfill": "^0.1.3",
     "react-dev-utils": "^6.1.1",
@@ -74,7 +78,8 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "server": "nodemon --harmony server/server.js",
+    "server_back": "nodemon --harmony server/server.js",
+    "server": "cross-env NODE_ENV=test nodemon --exec babel-node server/server.js",
     "dev": "concurrently \"npm run mongo\" \"npm run server\"  \"npm run start\"",
     "cdev": "concurrently \"npm run server\"  \"npm run start\"",
     "mongo": "mongod --config F:/MongoDB/etc/mongodb.conf"
@@ -84,7 +89,10 @@
     "rules": {
       "no-undef": "off",
       "no-restricted-globals": "off",
-      "no-unused-vars": "off"
+      "jsx-a11y/alt-text": "off",
+      "jsx-a11y/accessible-emoji": "off",
+      "no-unused-vars": "off",
+      "eqeqeq": "off"
     }
   },
   "browserslist": [
@@ -157,6 +165,7 @@
   },
   "proxy": "http://localhost:9093",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "express-cors": "^v0.0.3",

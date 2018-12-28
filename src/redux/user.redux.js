@@ -29,9 +29,9 @@ export function user(state = initState, action) {
     case ERROR_MSG:
       return { ...state, isAuth: false, msg: action.msg }
     case LOGOUT:
-      return {...initState, redirectTo:'/login'};
+      return { ...initState, redirectTo: '/login' };
     case RESET_STATE:
-      return {...initState,redirectTo:''};
+      return { ...initState, redirectTo: '' };
     default:
       return state;
 
@@ -68,23 +68,29 @@ export function register({ user, pwd, repeatpwd, type }) {
 }
 
 export function logoutSubmit() {
-  return {type: LOGOUT}
+  return { type: LOGOUT }
 }
 export function resetState() {
-  return {type: RESET_STATE}
+  return { type: RESET_STATE }
 }
 export function login({ user, pwd }) {
   if (!user || !pwd) {
     return errorMsg('用户名密码必须输入')
   }
-  return dispatch => {
-    Axios.post(userLogin, { user, pwd }).then((res) => {
-      if (res.status === 200 && res.data.code === 0) {
-        dispatch(authSucess(res.data.data));
-      } else {
-        dispatch(errorMsg(res.data.msg));
-      }
-    })
+  return async dispatch => {
+    let res = await Axios.post(userLogin, { user, pwd });
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch(authSucess(res.data.data));
+    } else {
+      dispatch(errorMsg(res.data.msg));
+    }
+    // Axios.post(userLogin, { user, pwd }).then((res) => {
+    //   if (res.status === 200 && res.data.code === 0) {
+    //     dispatch(authSucess(res.data.data));
+    //   } else {
+    //     dispatch(errorMsg(res.data.msg));
+    //   }
+    // })
   }
 }
 export function loadData(userinfo) {

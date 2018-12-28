@@ -1,7 +1,8 @@
 import React from 'react'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg, recvMsg ,readMsg} from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
+import QueueAnim from 'rc-queue-anim'
 import { getChatId } from '../../utils'
 
 import io from 'socket.io-client'
@@ -9,7 +10,7 @@ const socket = io('ws://localhost:9093')
 
 @connect(
   state => state,
-  { getMsgList, sendMsg, recvMsg ,readMsg}
+  { getMsgList, sendMsg, recvMsg, readMsg }
 )
 class Chat extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class Chat extends React.Component {
     // const to = this.props.match.params.user;
     // this.props.readMsg(to)
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     const to = this.props.match.params.user;
     this.props.readMsg(to)
   }
@@ -70,30 +71,31 @@ class Chat extends React.Component {
             {users[userid] ? users[userid].name : ''}
           </NavBar>
         </div>
-
-        {
-          chatmsgs.length > 0 ? chatmsgs.map(v => {
-            const avatar = require(`../img/${users[v.from].avatar}.png`)
-            return v.from === userid ? (
-              <List key={v._id}>
-                <Item
-                  thumb={avatar}
-                >
-                  {v.content}
-                </Item>
-              </List>
-            ) : (
-                <List key={v._id} className="chat-me">
+        <QueueAnim type="left" delay={100}>
+          {
+            chatmsgs.length > 0 ? chatmsgs.map(v => {
+              const avatar = require(`../img/${users[v.from].avatar}.png`)
+              return v.from === userid ? (
+                <List key={v._id}>
                   <Item
-                    extra={<img src={avatar} />}
+                    thumb={avatar}
                   >
                     {v.content}
                   </Item>
                 </List>
-              )
+              ) : (
+                  <List key={v._id} className="chat-me">
+                    <Item
+                      extra={<img src={avatar} />}
+                    >
+                      {v.content}
+                    </Item>
+                  </List>
+                )
 
-          }) : null
-        }
+            }) : null
+          }
+        </QueueAnim>
         <div className="stick-footer">
           <List>
             <InputItem
