@@ -59,7 +59,6 @@ class Chat extends React.Component {
     const Item = List.Item;
     const chat_id = getChatId(userid, this.props.user._id);
     const chatmsgs = this.props.chat.chatmsg.filter(v => v.chat_id === chat_id);
-    console.log(userid);
     return (
 
       <div id="chat-page">

@@ -59,7 +59,6 @@ class DashBoard extends React.Component {
     ]
     // 让动画生效，只渲染一个route，根据当前的path决定组件
     const page = navList.find(v => v.path == pathname)
-    console.log(page)
     return (
       <div>
         <NavBar className="fixed-header" mode='bard'

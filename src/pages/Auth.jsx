@@ -15,7 +15,6 @@ class Auth extends React.Component {
     }
   }
   componentDidMount() {
-    console.log(this.props);
     this.props.getUserData();
   }
   render() {
