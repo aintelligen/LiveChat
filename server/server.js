@@ -6,6 +6,7 @@ assethook({
   extensions: ['png', 'jpg']
 });
 const express = require('express')
+const fs = require('fs');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require("cors")
@@ -19,10 +20,15 @@ const path = require('path')
 import buildPath from '../build/asset-manifest.json';
 
 
+var cheerio = require('cheerio');
+var iconv = require('iconv-lite');
+var myHtml = fs.readFileSync(path.resolve(__dirname, "../build/index.html"));
+var myHtml2 = iconv.decode(myHtml, 'gbk');
+
 
 // 开发环境测试 jsx
 import React from 'react'
-import { renderToString } from 'react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 /* function App() {
   return (
     <h2>
@@ -132,6 +138,9 @@ app.use(function (req, res, next) {
       </body>
     </html>
   `
+
+  const pageHtmlFile = myHtml2.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
+
   return res.send(pageHtml)
   // return res.sendFile(path.resolve('build/index.html'))
 })

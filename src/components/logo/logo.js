@@ -4,7 +4,7 @@ class Logo extends React.Component {
   }
   render() {
     return (
-      <div className="login-container" style={require('./style.css')}>
+      <div className="loginContainer" style={require('./style.css')}>
         <img src={require('./job.png')} alt="" />
       </div>
     )
