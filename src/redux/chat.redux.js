@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import io from 'socket.io-client';
-const socket = io('ws://120.77.221.17:9093');
+const socket = io('https://react.aintelligen.com');
 
 const MSG_LIST = 'MSG_LIST';
 const MSG_READ = 'MSG_READ';
