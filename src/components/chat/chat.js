@@ -6,7 +6,7 @@ import QueueAnim from 'rc-queue-anim';
 import { getChatId } from '../../utils';
 
 import io from 'socket.io-client';
-const socket = io('ws://localhost:9093');
+const socket = io('ws://react.aintelligen.com');
 
 @connect(
   state => state,
