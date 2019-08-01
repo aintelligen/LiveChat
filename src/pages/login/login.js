@@ -1,11 +1,10 @@
-import React from 'react'
-import Logo from '../../components/logo/logo.js'
-import ImoocForm from '../../components/imooc-form/imooc-form'
-import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
-import { connect } from 'react-redux'
-import { login } from '../../redux/user.redux'
-import { Redirect } from 'react-router-dom'
-
+import React from 'react';
+import Logo from '../../components/logo/logo.js';
+import ImoocForm from '../../components/imooc-form/imooc-form';
+import { List, InputItem, WingBlank, WhiteSpace, Button, Toast } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { login, resetState } from '../../redux/user.redux';
+import { Redirect } from 'react-router-dom';
 
 // 属性代理
 /* function wrapperHello(Component){
@@ -43,52 +42,79 @@ class Hello extends React.Component{
   }
 } */
 
-
-
-
-
-
 @connect(
-  state=>state.user,
+  state => state.user,
   {
-    login
+    login,
+    resetState
   }
 )
 @ImoocForm
 class Login extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.register = this.register.bind(this)
-    this.loginAct = this.loginAct.bind(this)
+    this.register = this.register.bind(this);
+    this.loginAct = this.loginAct.bind(this);
+    this.registerSubClick.intcreament = false;
   }
-  register(){
-    this.props.history.push('/register')
+  register() {
+    this.props.resetState();
+    this.props.history.push('/register');
   }
-  loginAct(){
+  loginAct() {
+    this.registerSubClick.intcreament = true;
     this.props.login(this.props.state);
+
+    if (this.props.msg) {
+      Toast.show(this.props.msg, 2.0);
+    }
   }
-  componentDidMount() {
+  registerSubClick() {}
+  componentWillReceiveProps(props) {
+    if (this.registerSubClick.intcreament) {
+      if (props.msg) {
+        Toast.show(props.msg, 2.0);
+        this.registerSubClick.intcreament = false;
+      }
+    }
   }
+  componentDidMount() {}
   render() {
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
-        <Logo></Logo>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+        <Logo />
         <WingBlank>
           <List>
-            <InputItem onChange={(v) => { this.props.handleChange('user', v) }}>用户名</InputItem>
-            <WhiteSpace></WhiteSpace>
-            <InputItem type="password" onChange={(v) => { this.props.handleChange('pwd', v) }}>密码</InputItem>
+            <InputItem
+              onChange={v => {
+                this.props.handleChange('user', v);
+              }}
+            >
+              用户名
+            </InputItem>
+            <WhiteSpace />
+            <InputItem
+              type="password"
+              onChange={v => {
+                this.props.handleChange('pwd', v);
+              }}
+            >
+              密码
+            </InputItem>
           </List>
-          <WhiteSpace></WhiteSpace>
-          <Button type="primary" onClick={this.loginAct}>登录</Button>
-          <WhiteSpace></WhiteSpace>
-          <Button  type="primary" onClick={this.register}>注册</Button>          
+          <WhiteSpace />
+          <Button type="primary" onClick={this.loginAct}>
+            登录
+          </Button>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.register}>
+            注册
+          </Button>
         </WingBlank>
       </div>
-    )
-
+    );
   }
 }
 
-export default Login
+export default Login;

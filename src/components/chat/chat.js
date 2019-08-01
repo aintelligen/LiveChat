@@ -1,12 +1,12 @@
-import React from 'react'
-import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
-import { connect } from 'react-redux'
-import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
-import QueueAnim from 'rc-queue-anim'
-import { getChatId } from '../../utils'
+import React from 'react';
+import { List, InputItem, NavBar, Icon, Grid, Toast } from 'antd-mobile';
+import { connect } from 'react-redux';
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux';
+import QueueAnim from 'rc-queue-anim';
+import { getChatId } from '../../utils';
 
-import io from 'socket.io-client'
-const socket = io('ws://localhost:9093')
+import io from 'socket.io-client';
+const socket = io('ws://localhost:9093');
 
 @connect(
   state => state,
@@ -14,13 +14,13 @@ const socket = io('ws://localhost:9093')
 )
 class Chat extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       text: '',
       msg: []
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.fixCarsoul = this.fixCarsoul.bind(this)
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fixCarsoul = this.fixCarsoul.bind(this);
   }
   componentDidMount() {
     if (!this.props.chat.chatmsg.length) {
@@ -32,7 +32,7 @@ class Chat extends React.Component {
   }
   componentWillUnmount() {
     const to = this.props.match.params.user;
-    this.props.readMsg(to)
+    this.props.readMsg(to);
   }
   fixCarsoul() {
     setTimeout(() => {
@@ -43,27 +43,33 @@ class Chat extends React.Component {
     const from = this.props.user._id;
     const to = this.props.match.params.user;
     const msg = this.state.text;
-    this.props.sendMsg({ from, to, msg });
-    this.setState({
-      text: '',
-      showEmoji: false
-    })
+    if (msg) {
+      this.props.sendMsg({ from, to, msg });
+      this.setState({
+        text: '',
+        showEmoji: false
+      });
+    } else {
+      Toast.show('发送内容不能为空', 1.5);
+    }
   }
   render() {
     const emojin = '😡 ❤ 🎃 😸 🐭 🐮 🐯 🐼 🐻 🐺 🐹 🐸 🐷 🐶 🐵 🐴 🐲 🐱'.split(' ');
-    const emojins = [...emojin, ...emojin, ...emojin, ...emojin].filter(v => v).map(v => (
-      { text: v }
-    ))
+    const emojins = [...emojin, ...emojin, ...emojin, ...emojin].filter(v => v).map(v => ({ text: v }));
     const userid = this.props.match.params.user;
     const users = this.props.chat.users;
     const Item = List.Item;
     const chat_id = getChatId(userid, this.props.user._id);
-    const chatmsgs = this.props.chat.chatmsg.filter(v => v.chat_id === chat_id);
+    const chatmsgsAll = this.props.chat.chatmsg.filter((x, index, self) => self.indexOf(x) === index);
+    console.log(chatmsgsAll);
+    const chatmsgs = chatmsgsAll.filter(v => v.chat_id === chat_id);
+    console.log(chatmsgs);
     return (
-
       <div id="chat-page">
         <div className="stick-header">
-          <NavBar className="header-navbar" mode="dark"
+          <NavBar
+            className="header-navbar"
+            mode="dark"
             icon={<Icon type="left" />}
             onLeftClick={() => this.props.history.goBack()}
           >
@@ -71,50 +77,44 @@ class Chat extends React.Component {
           </NavBar>
         </div>
         <QueueAnim type="left" delay={100}>
-          {
-            chatmsgs.length > 0 ? chatmsgs.map(v => {
-              const avatar = require(`../img/${users[v.from].avatar}.png`)
-              return v.from === userid ? (
-                <List key={v._id}>
-                  <Item
-                    thumb={avatar}
-                  >
-                    {v.content}
-                  </Item>
-                </List>
-              ) : (
-                  <List key={v._id} className="chat-me">
-                    <Item
-                      extra={<img src={avatar} />}
-                    >
-                      {v.content}
-                    </Item>
+          {chatmsgs.length > 0
+            ? chatmsgs.map(v => {
+                const avatar = require(`../img/${users[v.from].avatar}.png`);
+                return v.from === userid ? (
+                  <List key={v._id}>
+                    <Item thumb={avatar}>{v.content}</Item>
                   </List>
-                )
-
-            }) : null
-          }
+                ) : (
+                  <List key={v._id} className="chat-me">
+                    <Item extra={<img src={avatar} />}>{v.content}</Item>
+                  </List>
+                );
+              })
+            : null}
         </QueueAnim>
         <div className="stick-footer">
           <List>
             <InputItem
-              placeholder='请输入'
+              placeholder="请输入"
               value={this.state.text}
               onChange={v => {
                 this.setState({
                   text: v
-                })
+                });
               }}
               extra={
                 <div>
-                  <span style={{ marginRight: 15 }} onClick={
-                    () => {
+                  <span
+                    style={{ marginRight: 15 }}
+                    onClick={() => {
                       this.setState({
                         showEmoji: !this.state.showEmoji
-                      })
-                      this.fixCarsoul()
-                    }
-                  }>😡</span>
+                      });
+                      this.fixCarsoul();
+                    }}
+                  >
+                    😡
+                  </span>
                   <span onClick={this.handleSubmit}>发送</span>
                 </div>
               }
@@ -122,8 +122,8 @@ class Chat extends React.Component {
               信息
             </InputItem>
           </List>
-          {
-            this.state.showEmoji ? <Grid
+          {this.state.showEmoji ? (
+            <Grid
               data={emojins}
               columnNum={9}
               carouselMaxRow={4}
@@ -131,16 +131,14 @@ class Chat extends React.Component {
               onClick={el => {
                 this.setState({
                   text: this.state.text + el.text
-                })
+                });
               }}
-            >
-            </Grid> :
-              null
-          }
+            />
+          ) : null}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Chat
+export default Chat;
