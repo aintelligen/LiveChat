@@ -1,8 +1,6 @@
 import Axios from 'axios';
 import io from 'socket.io-client';
-// const wsHost = 'http:' == window.location.protocol ? 'ws://localhost:9093' : 'wss://admin.aintelligen.com';
-
-const socket = io('wss://react.aintelligen.com');
+const socket = io('https://react.aintelligen.com');
 
 const MSG_LIST = 'MSG_LIST';
 const MSG_READ = 'MSG_READ';
