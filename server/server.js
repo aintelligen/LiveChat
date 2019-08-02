@@ -5,25 +5,17 @@ import assethook from 'asset-require-hook';
 assethook({
   extensions: ['png', 'jpg', 'ico']
 });
-const path = require('path');
 const express = require('express');
 const fs = require('fs');
-
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-
-var optionsSsl = {
-  key: fs.readFileSync(path.resolve(__dirname, './ssl/2_react.aintelligen.com.key')),
-  cert: fs.readFileSync(path.resolve(__dirname, './ssl/1_react.aintelligen.com_bundle.crt'))
-};
-
-const server = require('https').createServer(optionsSsl, app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const models = require('./model');
 const Chat = models.getModel('chat');
-
+const path = require('path');
 var iconv = require('iconv-lite');
 var buildHtml = fs.readFileSync(path.resolve(__dirname, '../build/index.html'));
 var myHtml2 = iconv.decode(buildHtml, 'utf-8');
@@ -37,7 +29,7 @@ import thunk from 'redux-thunk';
 import App from '../src/app';
 import Reducer from '../src/reducer';
 import { StaticRouter } from 'react-router-dom';
-console.log('reset');
+
 io.on('connection', function(socket) {
   socket.on('sendmsg', function(data) {
     console.log(data);
