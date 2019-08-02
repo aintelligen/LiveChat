@@ -37,7 +37,7 @@ import thunk from 'redux-thunk';
 import App from '../src/app';
 import Reducer from '../src/reducer';
 import { StaticRouter } from 'react-router-dom';
-
+console.log('reset');
 io.on('connection', function(socket) {
   socket.on('sendmsg', function(data) {
     console.log(data);
