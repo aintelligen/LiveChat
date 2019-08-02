@@ -12,7 +12,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const sockets = require('socket.io');
+const io = sockets(server);
 const models = require('./model');
 const Chat = models.getModel('chat');
 const path = require('path');
@@ -62,7 +63,7 @@ app.use(function(req, res, next) {
   if (req.url.startsWith('/chat/') || req.url.startsWith('/user/') || req.url.startsWith('/static')) {
     return next();
   }
-  if (req.url.startsWith('/favicon.png')) {
+  /* if (req.url.startsWith('/favicon.png')) {
     res.type('png');
     return res.sendFile(path.resolve(__dirname, '../build/favicon.png'));
   }
@@ -84,7 +85,7 @@ app.use(function(req, res, next) {
   // 替换 <div id="root"></div>   <div id="root">markup</div>
   const pageHtmlFile = myHtml2.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
 
-  return res.send(pageHtmlFile);
+  return res.send(pageHtmlFile); */
 });
 
 // 设置静态资源路径
