@@ -5,9 +5,6 @@ import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux';
 import QueueAnim from 'rc-queue-anim';
 import { getChatId } from '../../utils';
 
-import io from 'socket.io-client';
-const socket = io('ws://react.aintelligen.com');
-
 @connect(
   state => state,
   { getMsgList, sendMsg, recvMsg, readMsg }
