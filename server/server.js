@@ -5,17 +5,25 @@ import assethook from 'asset-require-hook';
 assethook({
   extensions: ['png', 'jpg', 'ico']
 });
+const path = require('path');
 const express = require('express');
 const fs = require('fs');
+
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const server = require('http').Server(app);
+
+var optionsSsl = {
+  key: fs.readFileSync(path.resolve(__dirname, './ssl/2_react.aintelligen.com.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, './ssl/1_react.aintelligen.com_bundle.crt'))
+};
+
+const server = require('https').createServer(optionsSsl, app);
 const io = require('socket.io')(server);
 const models = require('./model');
 const Chat = models.getModel('chat');
-const path = require('path');
+
 var iconv = require('iconv-lite');
 var buildHtml = fs.readFileSync(path.resolve(__dirname, '../build/index.html'));
 var myHtml2 = iconv.decode(buildHtml, 'utf-8');
