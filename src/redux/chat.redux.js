@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import io from 'socket.io-client';
-const socket = io('ws://localhost:9093/websocket');
 
+const socket = io('wss://react.aintelligen.com/websocket');
+// const socket = io('ws://localhsot:9093/websocket');
 const MSG_LIST = 'MSG_LIST';
 const MSG_READ = 'MSG_READ';
 const MSG_RECV = 'MSG_RECV';

@@ -5,16 +5,4 @@ let userRegister = host + '/user/register';
 let userLogin = host + '/user/login';
 let userInfo = host + '/user/info';
 
-
-
-
-export {
-  userList,
-  userRegister,
-  userLogin,
-  userInfo
-}
-
-
-
-
+export { userList, userRegister, userLogin, userInfo };
