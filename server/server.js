@@ -18,10 +18,13 @@ const models = require('./model');
 const Chat = models.getModel('chat');
 const path = require('path');
 var iconv = require('iconv-lite');
+/* 
 var buildHtml = fs.readFileSync(path.resolve(__dirname, '../build/index.html'));
-var myHtml2 = iconv.decode(buildHtml, 'utf-8');
+var myHtml2 = iconv.decode(buildHtml, 'utf-8'); 
+*/
 
 // 开发环境测试 jsx
+/* +
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -29,7 +32,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import App from '../src/app';
 import Reducer from '../src/reducer';
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom'; 
+*/
 
 io.on('connection', function(socket) {
   socket.on('sendmsg', function(data) {
