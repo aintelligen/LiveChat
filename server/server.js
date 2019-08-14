@@ -1,10 +1,15 @@
 // 处理css
+// 服务端渲染
+
+/* 
+import React from 'react';
 import csshook from 'css-modules-require-hook/preset';
-// 处理图片
+
 import assethook from 'asset-require-hook';
 assethook({
   extensions: ['png', 'jpg', 'ico']
-});
+});  */
+
 const express = require('express');
 const fs = require('fs');
 const cookieParser = require('cookie-parser');
@@ -18,6 +23,8 @@ const models = require('./model');
 const Chat = models.getModel('chat');
 const path = require('path');
 var iconv = require('iconv-lite');
+
+// 服务端渲染
 /* 
 var buildHtml = fs.readFileSync(path.resolve(__dirname, '../build/index.html'));
 var myHtml2 = iconv.decode(buildHtml, 'utf-8'); 
@@ -67,7 +74,9 @@ app.use(function(req, res, next) {
   if (req.url.startsWith('/chat/') || req.url.startsWith('/user/') || req.url.startsWith('/static')) {
     return next();
   }
-  /* if (req.url.startsWith('/favicon.png')) {
+  // 服务端渲染
+  /* 
+  if (req.url.startsWith('/favicon.png')) {
     res.type('png');
     return res.sendFile(path.resolve(__dirname, '../build/favicon.png'));
   }
@@ -89,7 +98,9 @@ app.use(function(req, res, next) {
   // 替换 <div id="root"></div>   <div id="root">markup</div>
   const pageHtmlFile = myHtml2.replace('<div id="root"></div>', `<div id="root">${markup}</div>`);
 
-  return res.send(pageHtmlFile); */
+  return res.send(pageHtmlFile); 
+  
+  */
 });
 
 // 设置静态资源路径
